@@ -1,14 +1,17 @@
 # confusion_matrix
 
-A Clojure library designed to ... well, that part is up to you.
+Implements metrics from [Confusion Matrix](https://en.wikipedia.org/wiki/Confusion_matrix)
+
+## Install
+
+The latest version of confusion matrix is hosted on [Clojars](https://clojars.org)
 
 ## Usage
 
-FIXME
+``` clojure
+(use
+```
 
 ## License
 
-Copyright © 2016 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License, the same as Clojure.

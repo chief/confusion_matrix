@@ -72,7 +72,7 @@
   (harmonic-mean (precision klass) (recall klass)))
 
 (defn all [metric-fn]
-  (reduce + (map #(metric-fn %) @classes)))
+  (reduce + (map metric-fn @classes)))
 
 (defn micro-average-precision []
   (/ (all true-positives) (+ (all true-positives) (all true-negatives))))

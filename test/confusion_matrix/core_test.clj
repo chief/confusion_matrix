@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [confusion-matrix.core :refer :all]))
 
-(create-from "test/fixtures/result.csv")
+(metrics-from "test/fixtures/result.csv")
 
 (deftest test-true-positives
   (testing "when passing category"

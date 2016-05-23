@@ -1,6 +1,9 @@
 (ns confusion-matrix.core
   (:use [clojure.java.io :only (reader)])
-  (:require [clojure.data.csv :as csv]))
+  (:require [clojure.data.csv :as csv]
+            [clojure.string :as string]
+            [clojure.tools.cli :refer [parse-opts]])
+  (:gen-class))
 
 (def ^:dynamic data (atom []))
 (def ^:dynamic classes (atom []))
@@ -11,7 +14,7 @@
     (doall
      (csv/read-csv in-file))))
 
-(defn create-from
+(defn metrics-from
   [filename]
   (reset! data (load-data filename))
   (reset! classes (distinct (map first @data))))
@@ -91,3 +94,48 @@
 
 (defn macro-average-fscore[]
   (harmonic-mean (macro-average-precision) (macro-average-recall)))
+
+(def cli-options
+  [["-f" "--file FILE" "a CSV file with the actual and predicted data"]
+   ["-h" "--help"]])
+
+(defn usage [options-summary]
+  (->> ["Generates confusion matrix metrics."
+        ""
+        "Usage: confusion-matrix [options]"
+        ""
+        "Options:"
+        options-summary
+        ""
+        "Please refer to the manual page for more information."]
+       (string/join \newline)))
+
+(defn error-msg [errors]
+  (str "The following errors occurred while parsing your command:\n\n"
+       (string/join \newline errors)))
+
+(defn exit [status msg]
+  (println msg)
+  (System/exit status))
+
+(defn display []
+  (->> ["macro-average fscore:" (macro-average-fscore)
+        "macro-average recall:" (macro-average-recall)
+        "macro-average precision:" (macro-average-precision)
+        "micro-average fscore:" (micro-average-fscore)
+        "micro-average recall:" (micro-average-recall)
+        "micro-average precision:" (micro-average-precision)
+        ]
+       (string/join \newline)))
+
+(defn -main [& args]
+  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
+    ;; Handle help and error conditions
+    (cond
+      (:help options) (exit 0 (usage summary))
+      (not= (count options) 1) (exit 1 (usage summary))
+      errors (exit 1 (error-msg errors)))
+    ;; Execute program with options
+    (metrics-from (:file options))
+    (exit 0 (display))
+    ))

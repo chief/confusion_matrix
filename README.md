@@ -8,8 +8,11 @@ The latest version of confusion matrix is hosted on [Clojars](https://clojars.or
 
 ## Usage
 
+
+
 ``` clojure
-(use
+(use 'confusion-matrix.core)
+
 ```
 
 ## License

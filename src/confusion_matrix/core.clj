@@ -92,7 +92,7 @@
 (defn macro-average-recall []
   (/ (all recall) (count @classes)))
 
-(defn macro-average-fscore[]
+(defn macro-average-fscore []
   (harmonic-mean (macro-average-precision) (macro-average-recall)))
 
 (def cli-options
@@ -100,15 +100,16 @@
    ["-h" "--help"]])
 
 (defn usage [options-summary]
-  (->> ["Generates confusion matrix metrics."
-        ""
-        "Usage: confusion-matrix [options]"
-        ""
-        "Options:"
-        options-summary
-        ""
-        "Please refer to the manual page for more information."]
-       (string/join \newline)))
+  (string/join
+   \newline
+   ["Generates confusion matrix metrics."
+    ""
+    "Usage: confusion-matrix [options]"
+    ""
+    "Options:"
+    options-summary
+    ""
+    "Please refer to the manual page for more information."]))
 
 (defn error-msg [errors]
   (str "The following errors occurred while parsing your command:\n\n"
@@ -119,14 +120,14 @@
   (System/exit status))
 
 (defn display []
-  (->> ["macro-average fscore:" (macro-average-fscore)
-        "macro-average recall:" (macro-average-recall)
-        "macro-average precision:" (macro-average-precision)
-        "micro-average fscore:" (micro-average-fscore)
-        "micro-average recall:" (micro-average-recall)
-        "micro-average precision:" (micro-average-precision)
-        ]
-       (string/join \newline)))
+  (string/join
+   \newline
+   ["macro-average fscore:" (macro-average-fscore)
+    "macro-average recall:" (macro-average-recall)
+    "macro-average precision:" (macro-average-precision)
+    "micro-average fscore:" (micro-average-fscore)
+    "micro-average recall:" (micro-average-recall)
+    "micro-average precision:" (micro-average-precision)]))
 
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
@@ -137,5 +138,4 @@
       errors (exit 1 (error-msg errors)))
     ;; Execute program with options
     (metrics-from (:file options))
-    (exit 0 (display))
-    ))
+    (exit 0 (display))))

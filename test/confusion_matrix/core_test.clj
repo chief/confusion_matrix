@@ -22,27 +22,27 @@
 
 (deftest test-sensitivity
   (testing "when passing category"
-    (is (= (/ 5 (+ 5 3)) (sensitivity "cat") ))))
+    (is (= (/ 5 (+ 5 3)) (sensitivity "cat")))))
 
 (deftest test-specificity
   (testing "when passing category"
-    (is (= (/ 17 (+ 2 17)) (specificity "cat") ))))
+    (is (= (/ 17 (+ 2 17)) (specificity "cat")))))
 
 (deftest test-precision
   (testing "when passing category"
-    (is (= (/ 5 (+ 5 3)) (precision "cat") ))))
+    (is (= (/ 5 (+ 5 3)) (precision "cat")))))
 
 (deftest test-negative-predictive
   (testing "when passing category"
-    (is (= (/ 17 (+ 17 3)) (negative-predictive "cat") ))))
+    (is (= (/ 17 (+ 17 3)) (negative-predictive "cat")))))
 
 (deftest test-fall-out
   (testing "when passing category"
-    (is (= (- 1 (specificity "cat")) (fall-out "cat") ))))
+    (is (= (- 1 (specificity "cat")) (fall-out "cat")))))
 
 (deftest test-miss-rate
   (testing "when passing category"
-    (is (= (/ 3 (+ 3  5)) (miss-rate "cat") )) ))
+    (is (= (/ 3 (+ 3  5)) (miss-rate "cat")))))
 
 (deftest test-accuracy
   (testing "when passing category"

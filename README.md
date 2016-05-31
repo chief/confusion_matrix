@@ -2,17 +2,50 @@
 
 Implements metrics from [Confusion Matrix](https://en.wikipedia.org/wiki/Confusion_matrix)
 
-## Install
-
-The latest version of confusion matrix is hosted on [Clojars](https://clojars.org)
-
 ## Usage
 
+``` shell
+git clone https://github.com/chief/confusion_matrix
 
+cd confusion_matrix
 
-``` clojure
-(use 'confusion-matrix.core)
+lein run -f <path>
+```
 
+## File format
+
+File should be .csv. Each row must have 2 values, the first one is the actual
+observed category and the last is the predicted category. For example a valid
+file could be the following:
+
+``` csv
+cat,cat
+cat,cat
+cat,cat
+cat,dog
+cat,dog
+cat,cat
+cat,dog
+cat,cat
+dog,dog
+dog,dog
+dog,dog
+dog,cat
+dog,cat
+dog,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,rabbit
+rabbit,dog
+rabbit,dog
 ```
 
 ## License
